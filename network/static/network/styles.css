@@ -1,0 +1,30 @@
+.form-control{
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+}
+
+.post-head {
+    display: flex;
+    margin: 0;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.post-head a{
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.post-foot{
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+}
+
+.heart{
+    filter: url(#blur);
+}
+
+.logo, .profile > button {
+    align-self: center;
+}
