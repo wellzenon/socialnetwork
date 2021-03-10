@@ -22,7 +22,7 @@ function Heart(props){
                 d={d}>
             </path>
             <filter id="blur" >
-                <feGaussianBlur stdDeviation="0.5" />
+                <feGaussianBlur stdDeviation="0.1" />
             </filter> 
         </svg>
     );
@@ -326,23 +326,23 @@ class Paginator extends React.Component{
             this.props.page_total > 1 &&
                 <div className="d-flex justify-content-center p-3">
                     <div className="btn-group align-items-baseline border border-secondary rounded">
-                        {this.state.page > 2 && 
+                        {this.state.page > 1 && 
                             <Button
                                 className = "btn-outline-secondary" 
                                 value="First page" 
                                 onclick={this.firstPage} /> }
-                        {this.state.page > 1 && 
+                        {this.state.page > 2 && 
                             <Button 
                                 className = "btn-outline-secondary"
                                 value="Previous page" 
                                 onclick={this.previousPage} />}
                         <span className="px-2"> Page {this.state.page} of {this.props.page_total} </span>
-                        {this.state.page < this.props.page_total  && 
+                        {this.state.page < this.props.page_total -1 && 
                             <Button 
                                 className = "btn-outline-secondary"    
                                 value="Next page" 
                                 onclick={this.nextPage} />}
-                        {this.state.page < this.props.page_total + 1  &&
+                        {this.state.page < this.props.page_total &&
                             <Button 
                                 className = "btn-outline-secondary"
                                 value="Last page" 
