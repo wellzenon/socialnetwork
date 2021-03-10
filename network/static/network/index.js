@@ -483,12 +483,16 @@ class LogIn extends React.Component {
     };
 
     handleSubmit = event => {
-        fetch('/login', {
+        event.preventDefault();
+        let headers = new Headers();
+        headers.append('X-CSRFToken', csrftoken());
+        headers.append('Content-Type', "application/json");
+        let request = new Request(
+            '/login', {headers: headers}
+        );
+        fetch(request, {
             method: 'POST',
-            headers: {
-                'X-CSRFToken': csrftoken(),
-                'Content-Type': 'application/json',
-            },
+            credentials: 'include',
             mode: 'same-origin',  
             body: JSON.stringify({
                 username: this.state.username,
@@ -500,7 +504,7 @@ class LogIn extends React.Component {
             result.user ? this.props.login(result) : this.setState({message: result.message});
             console.log(result);            
         });
-        event.preventDefault();
+        
         
     };
 
@@ -511,7 +515,7 @@ class LogIn extends React.Component {
         return(
             <React.Fragment>
                 {this.state.message && <Message message={this.state.message} />}
-                <form className = "form-group container-sm" onSubmit={this.handleSubmit}>
+                <form className = "form-group container-sm" onSubmit={this.handleSubmit} method="post" action="">
                     <input className = "form-control" type="text" name="username" placeholder="Username" onChange={this.handleUsername} autoFocus />
                     <input className = "form-control" type="password" name="password" placeholder="Password" onChange={this.handlePassword} />
                     <input className = "btn btn-primary"type="submit" value="Log in" />

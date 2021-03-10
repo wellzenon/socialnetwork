@@ -22,8 +22,7 @@ def menu(request):
     else:
         return JsonResponse({"message": "Forbidden"}, status=201)    
 
-@csrf_protect
-@ensure_csrf_cookie
+@csrf_exempt
 @login_required
 def save_post(request):
     if request.method == 'POST':
@@ -39,8 +38,7 @@ def save_post(request):
     
     return JsonResponse({"message": "Can't create an empty post."}, status=403)
 
-@csrf_protect
-@ensure_csrf_cookie
+@csrf_exempt
 @login_required
 def edit_post(request, id):
     post=Post.objects.get(id=id)
@@ -99,8 +97,7 @@ def get_user(request, id):
     }
     return JsonResponse(response, safe=False)
 
-@csrf_protect
-@ensure_csrf_cookie
+@csrf_exempt
 @login_required
 def toggle_like(request, id):
     user = request.user
@@ -113,8 +110,7 @@ def toggle_like(request, id):
         post.likes.add(user)
         return JsonResponse({"message": "Like sent successfully."}, status=201)
 
-@csrf_protect
-@ensure_csrf_cookie
+@csrf_exempt
 @login_required
 def toggle_follow(request, id):
     user = request.user
@@ -128,8 +124,7 @@ def toggle_follow(request, id):
         user.following.add(followed)
         return JsonResponse({"message": "Follow sent successfully."}, status=201)
 
-@csrf_protect
-@ensure_csrf_cookie
+@csrf_exempt
 def login_api(request):
     if request.method == "POST":
 
@@ -152,8 +147,7 @@ def logout_api(request):
     logout(request)
     return JsonResponse({"message": "Logged out successfully."}, status=201)
 
-@csrf_protect
-@ensure_csrf_cookie
+@csrf_exempt
 def register_api(request):
     if request.method == "POST":
         username = json.loads(request.body)["username"]
